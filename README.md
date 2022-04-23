@@ -1,3 +1,3 @@
 # Dashanan
-A Parallel Programing Project
+A Parallel Programming Project
 
