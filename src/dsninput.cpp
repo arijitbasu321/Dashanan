@@ -106,6 +106,7 @@ void launch_interactive_UI(char* framework, char* algorithm,
 
 void get_interactive_input(const char* input_field, 
                             char* output_buffer) {
+    int choice;
     FILE* ptr;
     char option[25];
     int no_of_options = 0;
