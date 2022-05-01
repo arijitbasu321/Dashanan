@@ -7,7 +7,7 @@ int get_user_input(int argc, char** argv, char* framework, char* algorithm,
 void launch_interactive_UI(char* framework, char* algorithm, 
                         char* scheduler, char* data);
 
-void get_interactive_input(const char* input_field, char* output_buffer);
+void get_params_interactive(const char* input_field, char* output_buffer);
 void get_data_source(char* data);
 void print_version();
 void print_help();

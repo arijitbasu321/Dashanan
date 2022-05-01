@@ -1,6 +1,7 @@
 #include <iostream>
 #include <getopt.h>
 #include <cstring>
+#include <stdlib.h>
 #include <unordered_map>
 #include "../include/dsninput.h"
 
@@ -96,17 +97,18 @@ void launch_interactive_UI(char* framework, char* algorithm,
     input_options["scheduler"] = scheduler;
 
     for(auto x : input_options) {
-        cout << x.first << " " << x.second << endl;
-        get_interactive_input(x.first, x.second);
+        get_params_interactive(x.first, x.second);
     }
 
     cout << endl;
     system("clear");
 }
 
-void get_interactive_input(const char* input_field, 
+void get_params_interactive(const char* input_field, 
                             char* output_buffer) {
-    int choice;
+    char choice;
+    int choice_key;
+    char c;
     FILE* ptr;
     char option[25];
     int no_of_options = 0;
@@ -126,15 +128,31 @@ void get_interactive_input(const char* input_field,
     cout << "------------------" << endl;
     cout << endl;
 
-    while (fgets(option, 25, ptr) != NULL) {
+    while (NULL != fgets(option, 25, ptr)) {
         options[no_of_options]=option;
         printf("%d => %s", no_of_options++, option);
     }
     fclose(ptr);
 
-    cout << "\n\nEnter Your choice? [Choose Number] => " << endl;
+    cout << "\n\nEnter Your choice? [Choose Number]\n\n=> ";
+
     cin >> choice;
-    strcpy(output_buffer, options[choice]);
+    while ((c = getchar()) != '\n' && c != EOF) { }
+
+    if(isdigit(choice)) {
+        choice_key = (int)choice - 48;
+        if(choice_key < no_of_options) {
+            strcpy(output_buffer, options[choice_key]);
+        }
+        else {
+            cout << "Invalid Input" << endl;
+            exit(1);
+        }
+    }
+    else {
+        cout << "Invalid Input" << endl;
+        exit(1);
+    }    
 }
 
 void get_data_source(char* data) {
