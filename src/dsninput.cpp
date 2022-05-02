@@ -106,42 +106,47 @@ void launch_interactive_UI(char* framework, char* algorithm,
 
 void get_params_interactive(const char* input_field, 
                             char* output_buffer) {
-    char choice;
-    int choice_key;
-    char c;
-    FILE* ptr;
-    char option[25];
-    // int no_of_options = 0;
-    char options_file[] = "config/";
-    strcat(options_file, input_field);
-    strcat(options_file, ".list");
-    unordered_map<int, char*> options;
-    
-    ptr = fopen(options_file, "r");
-    if (NULL == ptr) {
-        puts("File cannot be read!");
-        exit(1);
-    }
 
     print_banner();
     cout << "Choose " << input_field << ":" << endl;
     cout << "------------------" << endl;
     cout << endl;
 
+    char options_file[] = "config/";
+    strcat(options_file, input_field);
+    strcat(options_file, ".list");
+
+    FILE* ptr;
+    ptr = fopen(options_file, "r");
+
+    if (NULL == ptr) {
+        puts("File cannot be read!");
+        exit(1);
+    }
+
+    char option[25];
     int no_of_options = 0;
+    unordered_map<int, char*> options;
+
     while (NULL != fgets(option, 25, ptr)) {
         options[no_of_options]=option;
         printf("%d => %s", no_of_options++, option);
     }
+
     fclose(ptr);
 
     cout << "\n\nEnter Your choice? [Choose Number]\n\n=> ";
-
+    
+    char choice;
     cin >> choice;
+
+    char c;
     while ((c = getchar()) != '\n' && c != EOF) { }
 
     if(isdigit(choice)) {
+        int choice_key;
         choice_key = (int)choice - 48;
+
         if(choice_key < no_of_options) {
             strcpy(output_buffer, options[choice_key]);
         }
@@ -149,6 +154,7 @@ void get_params_interactive(const char* input_field,
             cout << "Invalid Input" << endl;
             exit(1);
         }
+        
     }
     else {
         cout << "Invalid Input" << endl;
