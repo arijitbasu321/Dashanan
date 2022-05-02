@@ -111,7 +111,7 @@ void get_params_interactive(const char* input_field,
     char c;
     FILE* ptr;
     char option[25];
-    int no_of_options = 0;
+    // int no_of_options = 0;
     char options_file[] = "config/";
     strcat(options_file, input_field);
     strcat(options_file, ".list");
@@ -128,6 +128,7 @@ void get_params_interactive(const char* input_field,
     cout << "------------------" << endl;
     cout << endl;
 
+    int no_of_options = 0;
     while (NULL != fgets(option, 25, ptr)) {
         options[no_of_options]=option;
         printf("%d => %s", no_of_options++, option);

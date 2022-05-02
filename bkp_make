@@ -1,0 +1,13 @@
+CC=g++
+EXECS=dashanan dsninput
+
+all: ${EXECS} 
+
+dashanan: dsninput
+	${CC} -o bin/dashanan src/main.cpp lib/dsninput.o
+
+dsninput:
+	${CC} -c src/dsninput.cpp -o lib/dsninput.o
+	
+clean:
+	rm -rf ${EXECS}
